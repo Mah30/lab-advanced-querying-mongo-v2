@@ -102,11 +102,20 @@ Limit: 10
 
 <!-- Your Query Goes Here -->
 
+Query: {'acquisition.acquired_year': {$gt: 2010}}
+Projection: {name: 1, acquisition: 1, _id: 0}
+Sort: {'acquisition.price_amount': -1}
+
+
 <br>
 
 **2. Order the companies by their `founded year`, retrieving only their `name` and `founded year`.**
 
 <!-- Your Query Goes Here -->
+
+Query: {'founded_year': { '$ne': null }}
+Projection: {name: 1, founded_year: 1, _id: 0}
+Sort: {founded_year: 1}
 
 <br>
 
@@ -114,16 +123,23 @@ Limit: 10
 
 <!-- Your Query Goes Here -->
 
+Query: {$and: [{category_code: 'web'}, {number_of_employees: {$gt: 4000}}]}
+Sort: {number_of_employees: 1}
+
 <br>
 
 **4. All the companies whose acquisition amount is more than 10.000.000, and currency is 'EUR'.**
 
 <!-- Your Query Goes Here -->
 
+Query: {$and: [{'acquisition.price_currency_code': 'EUR'}, {'acquisition.price_amount': {$gt: 10000000}}]}
+
 <br>
 
 **5. All the companies that have been founded between 2000 and 2010, but have not been acquired before 2011.**
 
 <!-- Your Query Goes Here -->
+
+Query: {$and: [{founded_year: {$gte: 2000}}, {founded_year: {$lte: 2010}}, {'acquisition.acquired_year':{$gt:2011}}]}
 
 <br>
